@@ -6,7 +6,29 @@ import (
 
 	aximemory "axi/memory"
 	axiprotocol "axi/protocol"
+	"github.com/ReconfigureIO/math/rand"
 )
+
+func MatrixSquare(x [4][4]uint32) [4][4]uint32 {
+
+	a := [4][4]uint32{
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+	}
+
+	for i := 0; i <= 3; i++ {
+		for j := 0; j <= 3; j++ {
+			for k := 0; k <= 3; k++ {
+				a[i][j] = a[i][j] + a[k][j] + a[i][k]
+			}
+		}
+	}
+
+	return a
+
+}
 
 // The kernel (this goes on the FPGA).
 func Top(
@@ -33,6 +55,8 @@ func Top(
 
 	// Since we're not reading anything from memory, disable those reads
 	go axiprotocol.ReadDisable(memReadAddr, memReadData)
+
+	outputChannel := make(chan uint32)
 
 	// Calculate the value
 	val := a + b
