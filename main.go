@@ -9,6 +9,16 @@ import (
 	"github.com/ReconfigureIO/math/rand"
 )
 
+func MatrixSum(x [4][4]uint32) uint32 {
+	var sum uint32 = 0
+	for i := 0; i <= 3; i++ {
+		for j := 0; j <= 3; j++ {
+			sum = sum + x[i][j]
+		}
+	}
+	return sum
+}
+
 func MatrixSquare(x [4][4]uint32) [4][4]uint32 {
 
 	a := [4][4]uint32{
@@ -57,9 +67,11 @@ func Top(
 	go axiprotocol.ReadDisable(memReadAddr, memReadData)
 
 	outputChannel := make(chan uint32)
+	rand.RandUint32(a, outputChannel)
+	msg := <-outputChannel
 
 	// Calculate the value
-	val := a + b
+	val := a + msg
 
 	// Write it back to the pointer the host requests
 	aximemory.WriteUInt32(
