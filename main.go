@@ -9,12 +9,10 @@ import (
 	"github.com/ReconfigureIO/math/rand"
 )
 
-func MatrixSum(x [4][4]uint32) uint32 {
+func VectorSum(x [4]uint32) uint32 {
 	var sum uint32 = 0
 	for i := 0; i <= 3; i++ {
-		for j := 0; j <= 3; j++ {
-			sum = sum + x[i][j]
-		}
+		sum = sum + x[i]
 	}
 	return sum
 }
