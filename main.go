@@ -9,25 +9,30 @@ import (
 	"github.com/ReconfigureIO/math/rand"
 )
 
-func MatrixSquare(x [4][4]uint32) [4][4]uint32 {
-
-	a := [4][4]uint32{
-		0, 0, 0, 0,
-		0, 0, 0, 0,
-		0, 0, 0, 0,
-		0, 0, 0, 0,
+func VectorSum(x [4]uint32) uint32 {
+	var sum uint32 = 0
+	for i := 0; i <= 3; i++ {
+		sum = sum + x[i]
 	}
+	return sum
+}
 
+func MatrixVector(x [4][4]uint32, a [4]uint32) [4]uint32 {
+	b := [4]uint32{}
 	for i := 0; i <= 3; i++ {
 		for j := 0; j <= 3; j++ {
-			for k := 0; k <= 3; k++ {
-				a[i][j] = a[i][j] + a[k][j] + a[i][k]
-			}
+			b[i] = b[i] + a[i]*x[i][j]
 		}
 	}
+	return b
+}
 
-	return a
-
+func MatrixIterate(n int, x [4][4]uint32, a [4]uint32) [4]uint32 {
+	b := a
+	for i := 0; i < n; i++ {
+		b = MatrixVector(x, b)
+	}
+	return b
 }
 
 // The kernel (this goes on the FPGA).
@@ -41,10 +46,6 @@ func Top(
 	b uint32,
 	addr uintptr,
 
-	// TODO we should see the RNG on the CPU
-	//
-	// Next TODO: a PRNG
-
 	// The second set of arguments will be the ports for interacting with memory
 	memReadAddr chan<- axiprotocol.Addr,
 	memReadData <-chan axiprotocol.ReadData,
@@ -56,10 +57,30 @@ func Top(
 	// Since we're not reading anything from memory, disable those reads
 	go axiprotocol.ReadDisable(memReadAddr, memReadData)
 
-	outputChannel := make(chan uint32)
+	m := [4][4]uint32{}
+	m[0][0] = 1
+	m[1][1] = 1
+	m[2][2] = 1
+	m[3][3] = 1
+
+	v := [4]uint32{}
+	v[0] = 1
+	v[1] = 4
+	v[2] = 4
+	v[3] = 1
+
+	iter := a >> 30
+
+	// matrix iterate can't read from memory?
+	x := MatrixIterate(4, m, v)
+	y := MatrixIterate(6, m, v)
+
+	//outputChannel := make(chan uint32)
+	//rand.RandUint32(a, outputChannel)
+	//msg := <-outputChannel
 
 	// Calculate the value
-	val := a + b
+	val := VectorSum(x) + VectorSum(y)
 
 	// Write it back to the pointer the host requests
 	aximemory.WriteUInt32(
