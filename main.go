@@ -46,10 +46,6 @@ func Top(
 	b uint32,
 	addr uintptr,
 
-	// TODO we should see the RNG on the CPU
-	//
-	// Next TODO: a PRNG
-
 	// The second set of arguments will be the ports for interacting with memory
 	memReadAddr chan<- axiprotocol.Addr,
 	memReadData <-chan axiprotocol.ReadData,
@@ -66,6 +62,8 @@ func Top(
 	m[1][1] = 1
 	m[2][2] = 1
 	m[3][3] = 1
+
+	// FIXME this isn't initializing things properly.
 	v := [4]uint32{}
 	v[0] = 1
 	v[1] = 4
@@ -76,13 +74,14 @@ func Top(
 
 	// matrix iterate can't read from memory?
 	x := MatrixIterate(4, m, v)
+	y := MatrixIterate(6, m, v)
 
 	//outputChannel := make(chan uint32)
 	//rand.RandUint32(a, outputChannel)
 	//msg := <-outputChannel
 
 	// Calculate the value
-	val := VectorSum(x)
+	val := VectorSum(x) + VectorSum(y)
 
 	// Write it back to the pointer the host requests
 	aximemory.WriteUInt32(
