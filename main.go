@@ -63,7 +63,6 @@ func Top(
 	m[2][2] = 1
 	m[3][3] = 1
 
-	// FIXME this isn't initializing things properly.
 	v := [4]uint32{}
 	v[0] = 1
 	v[1] = 4
