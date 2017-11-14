@@ -18,18 +18,18 @@ func VectorSum(x [4]uint32) uint32 {
 }
 
 // TODO check it sums to 1.
-func MatrixVector(x [4][4]uint32, a [4]uint32) [4]uint32 {
+func MatrixVector(x [16]uint32, a [4]uint32) [4]uint32 {
 	b := [4]uint32{}
 	for i := 0; i <= 3; i++ {
 		for j := 0; j <= 3; j++ {
-			b[i] = b[i] + a[i]*x[i][j]
+			b[i] = b[i] + a[i]*x[4*i+j] //[j]
 		}
 	}
 	return b
 }
 
-func MatrixIterate(n int, x [4][4]uint32, a [4]uint32) [4]uint32 {
-	b := a
+func MatrixIterate(n int, x [16]uint32, a [4]uint32) [4]uint32 {
+	b := a //[4]uint32{}
 	for i := 0; i < n; i++ {
 		b = MatrixVector(x, b)
 	}
@@ -62,18 +62,12 @@ func Top(
 	// Since we're not reading anything from memory, disable those reads
 	go axiprotocol.ReadDisable(memReadAddr, memReadData)
 
-	m := [4][4]uint32{
-		1, 0, 0, 0,
-		0, 1, 0, 0,
-		0, 0, 1, 0,
-		0, 0, 0, 1,
-	}
-	v := [4]uint32{
-		1, 4, 4, 1,
-	}
+	m := [16]uint32{}
+	v := [4]uint32{}
 
 	iter := a >> 30
-	x := MatrixIterate(iter, m, v)
+	// matrix iterate can't read from memory?
+	x := MatrixIterate(4, m, v)
 
 	//outputChannel := make(chan uint32)
 	//rand.RandUint32(a, outputChannel)
