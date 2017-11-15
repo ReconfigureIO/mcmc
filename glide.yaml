@@ -1,0 +1,5 @@
+package: .
+import:
+- package: github.com/ReconfigureIO/mcmc
+  subpackages:
+- package: github.com/ReconfigureIO/math
