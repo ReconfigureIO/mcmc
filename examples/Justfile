@@ -1,7 +1,8 @@
 glide COMMAND:
-    sed -i.bak '/aximemory/d' main.go
+    sed -i.bk '/aximemory\|axiprotocol\|sdaccel/d' main.go
+    mv main.go.bk ../
     @glide {{ COMMAND }}
-    mv main.go.bk main.go
+    mv ../main.go.bk main.go
 
 test:
     reco test run test-regression
