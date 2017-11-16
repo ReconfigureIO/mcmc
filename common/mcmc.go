@@ -1,4 +1,4 @@
-package mcmc
+package common
 
 // Sum an array.
 func VectorSum(x [4]uint32) uint32 {
