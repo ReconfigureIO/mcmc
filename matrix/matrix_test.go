@@ -1,6 +1,6 @@
 package matrix
 
-import "github.com/ReconfigureIO/mcmc/matrix"
+import "mcmc/matrix"
 
 func main() {
 	println("nothing")
