@@ -1,12 +1,7 @@
 glide COMMAND:
-    @sed -i 's/axi/\/\/axi/g' main.go
-    @sed -i 's/"xcl/\/\/"xcl/g' cmd/test-mcmc/main.go
-    @sed -i 's/_ /\/\/_ /g' main.go
-    git commit -am "glide"
+    sed -i.bak '/aximemory/d' main.go
     @glide {{ COMMAND }}
-    @sed -i 's/\/\/axi/axi/g' main.go
-    @sed -i 's/\/\/_ /_ /g' main.go
-    @sed -i 's/\/\/"xcl/"xcl/g' cmd/test-mcmc/main.go
+    mv main.go.bk main.go
 
 test:
     reco test run test-regression

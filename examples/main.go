@@ -2,10 +2,10 @@ package main
 
 import (
 	// Import the entire framework
-	//_ "sdaccel"
+	_ "sdaccel"
 
-	//aximemory "//axi/memory"
-	//axiprotocol "//axi/protocol"
+	aximemory "axi/memory"
+	axiprotocol "axi/protocol"
 	"github.com/ReconfigureIO/math/rand"
 	"github.com/ReconfigureIO/mcmc"
 )
@@ -22,15 +22,15 @@ func Top(
 	addr uintptr,
 
 	// The second set of arguments will be the ports for interacting with memory
-	memReadAddr chan<- //axiprotocol.Addr,
-	memReadData <-chan //axiprotocol.ReadData,
+	memReadAddr chan<- axiprotocol.Addr,
+	memReadData <-chan axiprotocol.ReadData,
 
-	memWriteAddr chan<- //axiprotocol.Addr,
-	memWriteData chan<- //axiprotocol.WriteData,
-	memWriteResp <-chan //axiprotocol.WriteResp) {
+	memWriteAddr chan<- axiprotocol.Addr,
+	memWriteData chan<- axiprotocol.WriteData,
+	memWriteResp <-chan axiprotocol.WriteResp) {
 
 	// Since we're not reading anything from memory, disable those reads
-	go //axiprotocol.ReadDisable(memReadAddr, memReadData)
+	go axiprotocol.ReadDisable(memReadAddr, memReadData)
 
 	m := [4][4]uint32{}
 	m[0][0] = 1
@@ -58,6 +58,6 @@ func Top(
 	val := VectorSum(x) + VectorSum(y)
 
 	// Write it back to the pointer the host requests
-	//aximemory.WriteUInt32(
+	aximemory.WriteUInt32(
 		memWriteAddr, memWriteData, memWriteResp, false, addr, val)
 }
