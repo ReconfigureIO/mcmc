@@ -19,11 +19,13 @@ func VectorSum(x [4]uint32) uint32 {
 
 func MatrixVector(x [4][4]uint32, a [4]uint32) [4]uint32 {
 	b := [4]uint32{}
-	for i := 0; i <= 3; i++ {
-		for j := 0; j <= 3; j++ {
-			b[i] = b[i] + a[i]*x[i][j]
+	go func() {
+		for i := 0; i <= 3; i++ {
+			for j := 0; j <= 3; j++ {
+				b[i] = b[i] + a[i]*x[i][j]
+			}
 		}
-	}
+	}()
 	return b
 }
 
