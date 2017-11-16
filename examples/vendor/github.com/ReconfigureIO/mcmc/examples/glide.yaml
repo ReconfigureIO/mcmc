@@ -1,5 +1,0 @@
-package: .
-import:
-- package: github.com/ReconfigureIO/math
-  subpackages:
-  - rand
