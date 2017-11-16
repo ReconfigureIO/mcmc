@@ -1,6 +1,6 @@
 package matrix
 
-import "matrix"
+import "mcmc/matrix"
 
 func main() {
 	println("nothing")
