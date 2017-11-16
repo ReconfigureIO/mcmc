@@ -5,7 +5,8 @@ glide COMMAND:
     @mv ../main.go.bk main.go
 
 test:
-    reco test run test-regression
+    reco project set mcmc
+    reco test run test-mcmc
 
 check:
     reco check
