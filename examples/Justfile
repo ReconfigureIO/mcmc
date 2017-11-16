@@ -2,7 +2,7 @@ glide COMMAND:
     @sed -i 's/axi/\/\/axi/g' main.go
     @sed -i 's/"xcl/\/\/"xcl/g' cmd/test-mcmc/main.go
     @sed -i 's/_ /\/\/_ /g' main.go
-    glide {{ COMMAND }}
+    @glide {{ COMMAND }}
     @sed -i 's/\/\/axi/axi/g' main.go
     @sed -i 's/\/\/_ /_ /g' main.go
     @sed -i 's/\/\/"xcl/"xcl/g' cmd/test-mcmc/main.go
