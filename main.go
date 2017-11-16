@@ -29,7 +29,7 @@ func MatrixVector(x [4][4]uint32, a [4]uint32) [4]uint32 {
 
 func MatrixIterate(n int, x [4][4]uint32, a [4]uint32) [4]uint32 {
 	b := a
-	for i := 0; i < n; i++ {
+	for i := 0; i < n+15; i++ {
 		b = MatrixVector(x, b)
 	}
 	return b
@@ -69,11 +69,11 @@ func Top(
 	v[2] = 4
 	v[3] = 1
 
-	iter := a >> 30
+	iter := int(a >> 30)
 
 	// matrix iterate can't read from memory?
-	x := MatrixIterate(4, m, v)
-	y := MatrixIterate(6, m, v)
+	x := MatrixIterate(iter, m, v)
+	y := MatrixIterate(iter, m, v)
 
 	//outputChannel := make(chan uint32)
 	//rand.RandUint32(a, outputChannel)
