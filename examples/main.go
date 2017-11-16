@@ -7,35 +7,8 @@ import (
 	aximemory "axi/memory"
 	axiprotocol "axi/protocol"
 	"github.com/ReconfigureIO/math/rand"
+	"github.com/ReconfigureIO/mcmc"
 )
-
-func VectorSum(x [4]uint32) uint32 {
-	var sum uint32 = 0
-	for i := 0; i <= 3; i++ {
-		sum = sum + x[i]
-	}
-	return sum
-}
-
-func MatrixVector(x [4][4]uint32, a [4]uint32) [4]uint32 {
-	b := [4]uint32{}
-	go func() {
-		for i := 0; i <= 3; i++ {
-			for j := 0; j <= 3; j++ {
-				b[i] = b[i] + a[i]*x[i][j]
-			}
-		}
-	}()
-	return b
-}
-
-func MatrixIterate(n int, x [4][4]uint32, a [4]uint32) [4]uint32 {
-	b := a
-	for i := 0; i < n+15; i++ {
-		b = MatrixVector(x, b)
-	}
-	return b
-}
 
 // The kernel (this goes on the FPGA).
 func Top(
