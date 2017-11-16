@@ -1,12 +1,12 @@
 glide COMMAND:
     @sed -i.bk '/aximemory\|axiprotocol\|sdaccel/d' main.go
+    @sed -i.bk '/xcl/d' cmd/test-mcmc/main.go
     @mv main.go.bk ../
+    @mv cmd/test-mcmc/main.go.bk ../cmd.go.bk
     @glide {{ COMMAND }}
     @mv ../main.go.bk main.go
+    @mv ../cmd.go.bk cmd/test-mcmc/main.go
 
 test:
-    reco project set mcmc
+    @reco project set mcmc
     reco test run test-mcmc
-
-check:
-    reco check

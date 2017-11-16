@@ -32,15 +32,17 @@ func Top(
 	// Since we're not reading anything from memory, disable those reads
 	go axiprotocol.ReadDisable(memReadAddr, memReadData)
 
-	m := [16][16]uint32{}
-	for i := 0; i < 16; i++ {
-		m[i][i] = 1
-	}
+	m := [8][8]uint32{}
+	m[0][0] = 1
+	m[1][1] = 1
+	m[2][2] = 1
+	m[3][3] = 1
 
-	v := [16]uint32{}
-	for i := 0; i < 4; i++ {
-		v[i] = 1
-	}
+	v := [8]uint32{}
+	v[0] = 1
+	v[1] = 4
+	v[2] = 4
+	v[3] = 1
 
 	iter := int(a >> 30)
 
