@@ -7,7 +7,7 @@ import (
 	aximemory "axi/memory"
 	axiprotocol "axi/protocol"
 	"github.com/ReconfigureIO/math/rand"
-	"github.com/ReconfigureIO/mcmc"
+	. "github.com/ReconfigureIO/mcmc/matrix"
 )
 
 // The kernel (this goes on the FPGA).
