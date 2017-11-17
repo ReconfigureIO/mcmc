@@ -34,12 +34,12 @@ func Top(
 	go aximemory.ReadBurstUInt32(
 		memReadAddr, memReadData, true, addr, inputLength, inputChannel)
 
-	m := [256]uint32{}
+	m := [64]uint32{}
 	for i := 0; i < int(inputLength); i++ {
 		m[i] = <-inputChannel
 	}
 
-	v := [16]uint32{}
+	v := [8]uint32{}
 	v[0] = 1
 	v[1] = 4
 	v[2] = 4
