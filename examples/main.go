@@ -35,8 +35,8 @@ func Top(
 		memReadAddr, memReadData, true, addr, inputLength, inputChannel)
 
 	m := [256]uint32{}
-	for i := ; i < int(inputLength) ; i++ {
-	    m[i] = <-inputChannel
+	for i := 0; i < int(inputLength); i++ {
+		m[i] = <-inputChannel
 	}
 
 	v := [16]uint32{}
