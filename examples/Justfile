@@ -10,3 +10,7 @@ glide COMMAND:
 test:
     @reco project set mcmc
     reco test run test-mcmc
+
+bench:
+    @reco project set mcmc
+    reco test run bench-mcmc
