@@ -18,7 +18,7 @@ func Top(
 	// For this example, we have 3 arguments: the first is a seed from the
 	// CPU.
 	a uint32,
-	b uint32,
+	inputLength uint32,
 	addr uintptr,
 
 	// The second set of arguments will be the ports for interacting with memory
@@ -29,14 +29,15 @@ func Top(
 	memWriteData chan<- axiprotocol.WriteData,
 	memWriteResp <-chan axiprotocol.WriteResp) {
 
-	// Since we're not reading anything from memory, disable those reads
-	go axiprotocol.ReadDisable(memReadAddr, memReadData)
+	inputChannel := make(chan uint32)
+
+	go aximemory.ReadBurstUInt64(
+		memReadAddr, memReadData, true, addr, inputLength, inputChannel)
 
 	m := [16][16]uint32{}
-	m[0][0] = 1
-	m[1][1] = 1
-	m[2][2] = 1
-	m[3][3] = 1
+	for i := 0; i < int(inputLength); i++ {
+		m[i/8][i%8] = <-inputChannel
+	}
 
 	v := [16]uint32{}
 	v[0] = 1

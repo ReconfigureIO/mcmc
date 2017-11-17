@@ -1,7 +1,7 @@
 package main
 
 import (
-	//	"encoding/binary"
+	"encoding/binary"
 	// "math/rand"
 	"testing"
 	"xcl"
@@ -44,13 +44,24 @@ func doit(world xcl.World, krnl *xcl.Kernel, B *testing.B) {
 	// The data we'll send to the kernel for processing
 	//seed := rand.Uint32()
 
-	// don't care about these
-	buff := world.Malloc(xcl.WriteOnly, 4)
-	defer buff.Free()
+	input := [64]uint32{}
+	for i := 0; i < 64; i++ {
+		/// this weird-ish hack gets us the identity matrix.
+		if i/8 == i%8 {
+			input[i] = 1
+		}
+	}
 
+	inputBuff := world.Malloc(xcl.ReadOnly, uint(binary.Size(input)))
+	defer inputBuff.Free()
+
+	// set iterations to 1000
 	krnl.SetArg(0, 1000)
+	// set input length.
 	krnl.SetArg(1, 64)
-	krnl.SetMemoryArg(2, buff)
+	krnl.SetMemoryArg(2, inputBuff)
+
+	binary.Write(inputBuff.Writer(), binary.LittleEndian, &input)
 
 	krnl.Run(1, 1, 1)
 	B.StopTimer()
