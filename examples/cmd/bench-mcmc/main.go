@@ -48,8 +48,8 @@ func doit(world xcl.World, krnl *xcl.Kernel, B *testing.B) {
 	buff := world.Malloc(xcl.WriteOnly, 4)
 	defer buff.Free()
 
-	krnl.SetArg(0, 100)
-	krnl.SetArg(1, 100)
+	krnl.SetArg(0, 1000)
+	krnl.SetArg(1, 64)
 	krnl.SetMemoryArg(2, buff)
 
 	krnl.Run(1, 1, 1)
