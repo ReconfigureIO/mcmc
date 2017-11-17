@@ -31,12 +31,12 @@ func Top(
 
 	inputChannel := make(chan uint32)
 
-	go aximemory.ReadBurstUInt64(
+	go aximemory.ReadBurstUInt32(
 		memReadAddr, memReadData, true, addr, inputLength, inputChannel)
 
-	m := [16][16]uint32{}
-	for i := 0; i < int(inputLength); i++ {
-		m[i/8][i%8] = <-inputChannel
+	m := [256]uint32{}
+	for i := ; i < int(inputLength) ; i++ {
+	    m[i] = <-inputChannel
 	}
 
 	v := [16]uint32{}
