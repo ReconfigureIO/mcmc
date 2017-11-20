@@ -19,6 +19,7 @@ func Top(
 	// CPU.
 	a uint32,
 	inputLength uint32,
+	inputAddr uintptr,
 	addr uintptr,
 
 	// The second set of arguments will be the ports for interacting with memory
@@ -32,7 +33,7 @@ func Top(
 	inputChannel := make(chan uint32)
 
 	go aximemory.ReadBurstUInt32(
-		memReadAddr, memReadData, true, addr, inputLength, inputChannel)
+		memReadAddr, memReadData, true, inputAddr, inputLength, inputChannel)
 
 	v := [8]uint32{}
 	v[0] = 1

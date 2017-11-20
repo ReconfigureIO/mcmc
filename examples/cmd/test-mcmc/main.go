@@ -17,6 +17,17 @@ func main() {
 	krnl := world.Import("kernel_test").GetKernel("reconfigure_io_sdaccel_builder_stub_0_1")
 	defer krnl.Release()
 
+	input := [64]uint32{}
+	for i := 0; i < 64; i++ {
+		/// this weird-ish hack gets us the identity matrix.
+		if i/8 == i%8 {
+			input[i] = 1
+		}
+	}
+
+	inputBuff := world.Malloc(xcl.ReadOnly, uint(binary.Size(input)))
+	defer inputBuff.Free()
+
 	// Allocate a buffer on the FPGA to store the return value of our computation
 	// The output is a uint32, so we use 4 bytes to store it
 	buff := world.Malloc(xcl.WriteOnly, 4)
@@ -27,11 +38,14 @@ func main() {
 	// The first argument will be the seed.
 	krnl.SetArg(0, rand.Uint32())
 	// The second argument will be the number of iterations to do.
-	krnl.SetArg(1, 2)
+	krnl.SetArg(1, 64)
+	krnl.SetMemoryArg(2, inputBuff)
 	// Set the pointer to the output buffer
-	krnl.SetMemoryArg(2, buff)
+	krnl.SetMemoryArg(3, buff)
 
-	// Run the kernel with the supplied arguments
+	binary.Write(inputBuff.Writer(), binary.LittleEndian, &input)
+
+	// Run the kernel
 	krnl.Run(1, 1, 1)
 
 	// Decode the byte slice given by the FPGA into the uint32 we're expecting
@@ -40,10 +54,6 @@ func main() {
 	if err != nil {
 		fmt.Println("binary.Read failed:", err)
 	}
-
-	// Just here to verify we can indeed generate random numbers on the CPU
-	// side of things.
-	fmt.Printf("%d, %d\n", rand.Int(), rand.Int())
 
 	// Print the value given by the FPGA
 	fmt.Printf("%d\n", ret)
