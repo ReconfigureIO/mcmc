@@ -9,7 +9,6 @@ func VectorSum(x [8]uint32) uint32 {
 	return sum
 }
 
-// TODO this should take a channel as an argument and only make it into a matrix locally.
 func matrixVector(c <-chan uint32, a [8]uint32) [8]uint32 {
 	x := [64]uint32{}
 	go func() {
