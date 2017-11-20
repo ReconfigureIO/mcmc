@@ -11,11 +11,9 @@ func VectorSum(x [8]uint32) uint32 {
 
 func MatrixIterate(n int, c <-chan uint32, a [8]uint32) [8]uint32 {
 	x := [64]uint32{}
-	go func() {
-		for i := 0; i < 64; i++ {
-			x[i] = <-c
-		}
-	}()
+	for i := 0; i < 64; i++ {
+		x[i] = <-c
+	}
 	b := a
 	for i := 0; i < n; i++ {
 		b = [8]uint32{}
