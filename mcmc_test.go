@@ -18,6 +18,7 @@ func TestVectorSum(t *testing.T) {
 }
 
 func BenchmarkMatrixMult(b *testing.B) {
+	b.SetBytes(4 * 64)
 	for i := 0; i < b.N; i++ {
 		a := [8]uint32{}
 		x := [64]uint32{}
