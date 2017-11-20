@@ -41,7 +41,7 @@ func Top(
 	v[2] = 4
 	v[3] = 1
 
-	iter := int(a >> 30)
+	iter := 1000 // int(a >> 30)
 
 	// matrix iterate can't read from memory?
 	x := MatrixIterate(iter, inputChannel, v)

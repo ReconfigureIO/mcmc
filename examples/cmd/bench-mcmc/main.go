@@ -55,11 +55,15 @@ func doit(world xcl.World, krnl *xcl.Kernel, B *testing.B) {
 	inputBuff := world.Malloc(xcl.ReadOnly, uint(binary.Size(input)))
 	defer inputBuff.Free()
 
+	buff := world.Malloc(xcl.WriteOnly, 4)
+	defer buff.Free()
+
 	// set iterations to 1000
 	krnl.SetArg(0, 1000)
 	// set input length.
 	krnl.SetArg(1, 64)
 	krnl.SetMemoryArg(2, inputBuff)
+	krnl.SetMemoryArg(3, buff)
 
 	binary.Write(inputBuff.Writer(), binary.LittleEndian, &input)
 

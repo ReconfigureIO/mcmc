@@ -6,14 +6,9 @@ An example of Markov Chain Monte Carlo on an FPGA. Uses the [Reconfigure IO](htt
 
 Currently a WIP.
 
-<!--
 ## Benchmarks
-
-- note: bytes/sec. as well is good.
 
 | Client | Time |
 | ------ | ---- |
-| CPU | 789068 ns |
-| FPGA | 0.007774 ms |
-
--->
+| CPU | 92066 ns |
+| FPGA | 0.015502 ms |
