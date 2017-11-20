@@ -17,13 +17,11 @@ func matrixVector(c <-chan uint32, a [8]uint32) [8]uint32 {
 		}
 	}()
 	b := [8]uint32{}
-	go func() {
-		for i := 0; i <= 7; i++ {
-			for j := 0; j <= 7; j++ {
-				b[i] = b[i] + a[i]*x[8*i+j]
-			}
+	for i := 0; i <= 7; i++ {
+		for j := 0; j <= 7; j++ {
+			b[i] = b[i] + a[i]*x[8*i+j]
 		}
-	}()
+	}
 	return b
 }
 
