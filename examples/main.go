@@ -34,12 +34,6 @@ func Top(
 	go aximemory.ReadBurstUInt32(
 		memReadAddr, memReadData, true, addr, inputLength, inputChannel)
 
-	// FIXME this is too big apparently so we need to just use a channel?
-	m := [64]uint32{}
-	for i := 0; i < int(inputLength); i++ {
-		m[i] = <-inputChannel
-	}
-
 	v := [8]uint32{}
 	v[0] = 1
 	v[1] = 4
@@ -49,8 +43,8 @@ func Top(
 	iter := int(a >> 30)
 
 	// matrix iterate can't read from memory?
-	x := MatrixIterate(iter, m, v)
-	y := MatrixIterate(iter, m, v)
+	x := MatrixIterate(iter, inputChannel, v)
+	y := MatrixIterate(iter, inputChannel, v)
 
 	//outputChannel := make(chan uint32)
 	//rand.RandUint32(a, outputChannel)
