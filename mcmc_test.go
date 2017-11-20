@@ -17,6 +17,24 @@ func TestVectorSum(t *testing.T) {
 	}
 }
 
+func TestMatrixMult(t *testing.T) {
+	a := [8]uint32{1, 1, 1, 1, 1, 1, 1, 1}
+	x := [64]uint32{}
+	c := make(chan uint32, 64)
+	go func() {
+		for i := 0; i < 64; i++ {
+			if i%8 == i/8 {
+				x[i] = 1
+			}
+			c <- x[i]
+		}
+	}()
+	val := MatrixIterate(1000, c, a)
+	if val != [8]uint32{1, 1, 1, 1, 1, 1, 1, 1} {
+		t.Fail()
+	}
+}
+
 func BenchmarkMatrixMult(b *testing.B) {
 	b.SetBytes(4 * 64)
 	for i := 0; i < b.N; i++ {
