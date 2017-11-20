@@ -9,6 +9,8 @@ Currently a WIP.
 <!--
 ## Benchmarks
 
+- note: bytes/sec. as well is good.
+
 | Client | Time |
 | ------ | ---- |
 | CPU | 789068 ns |

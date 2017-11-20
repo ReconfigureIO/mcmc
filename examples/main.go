@@ -34,6 +34,7 @@ func Top(
 	go aximemory.ReadBurstUInt32(
 		memReadAddr, memReadData, true, addr, inputLength, inputChannel)
 
+	// FIXME this is too big apparently so we need to just use a channel?
 	m := [64]uint32{}
 	for i := 0; i < int(inputLength); i++ {
 		m[i] = <-inputChannel

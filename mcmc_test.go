@@ -21,7 +21,13 @@ func BenchmarkMatrixMult(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		a := [8]uint32{}
 		x := [64]uint32{}
-		val := MatrixIterate(1000, x, a)
+		c := make(chan uint32, 64)
+		go func() {
+			for i := 0; i < 64; i++ {
+				c <- x[i]
+			}
+		}()
+		val := MatrixIterate(1000, c, a)
 		fmt.Sprintf("%d", val)
 	}
 }

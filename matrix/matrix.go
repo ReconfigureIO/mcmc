@@ -9,7 +9,14 @@ func VectorSum(x [8]uint32) uint32 {
 	return sum
 }
 
-func matrixVector(x [64]uint32, a [8]uint32) [8]uint32 {
+// TODO this should take a channel as an argument and only make it into a matrix locally.
+func matrixVector(c <-chan uint32, a [8]uint32) [8]uint32 {
+	x := [64]uint32{}
+	go func() {
+		for i := 0; i < 64; i++ {
+			x[i] = <-c
+		}
+	}()
 	b := [8]uint32{}
 	go func() {
 		for i := 0; i <= 7; i++ {
@@ -21,10 +28,10 @@ func matrixVector(x [64]uint32, a [8]uint32) [8]uint32 {
 	return b
 }
 
-func MatrixIterate(n int, x [64]uint32, a [8]uint32) [8]uint32 {
+func MatrixIterate(n int, c <-chan uint32, a [8]uint32) [8]uint32 {
 	b := a
 	for i := 0; i < n; i++ {
-		b = matrixVector(x, b)
+		b = matrixVector(c, b)
 	}
 	return b
 }
