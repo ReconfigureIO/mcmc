@@ -45,14 +45,14 @@ func Top(
 
 	// matrix iterate can't read from memory?
 	x := MatrixIterate(iter, inputChannel, v)
-	y := MatrixIterate(iter, inputChannel, v)
+	// y := MatrixIterate(iter, inputChannel, v)
 
 	//outputChannel := make(chan uint32)
 	//rand.RandUint32(a, outputChannel)
 	//msg := <-outputChannel
 
 	// Calculate the value
-	val := VectorSum(x) + VectorSum(y)
+	val := VectorSum(x) // + VectorSum(y)
 
 	// Write it back to the pointer the host requests
 	aximemory.WriteUInt32(
