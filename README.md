@@ -11,4 +11,4 @@ Currently a WIP.
 | Client | Time |
 | ------ | ---- |
 | CPU | 92066 ns |
-| FPGA | 0.015502 ms |
+| FPGA | 0.051958 ms |
