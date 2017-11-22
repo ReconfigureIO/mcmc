@@ -29,8 +29,9 @@ func TestMatrixMult(t *testing.T) {
 			c <- x[i]
 		}
 	}()
-	val := MatrixIterate(1000, c, a)
+	val := MatrixIterate(100, c, a)
 	if val != [8]uint32{1, 1, 1, 1, 1, 1, 1, 1} {
+		fmt.Print("%d", val)
 		t.Fail()
 	}
 }
