@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/binary"
 	"fmt"
-	"math/rand"
+	//"math/rand"
 	"os"
 	"xcl"
 )
@@ -37,7 +37,7 @@ func main() {
 	// Pass the arguments to the kernel
 
 	// The first argument will be the seed.
-	krnl.SetArg(0, rand.Uint32())
+	krnl.SetArg(0, 10) //rand.Uint32())
 	// The second argument will be the number of iterations to do.
 	krnl.SetArg(1, 64)
 	krnl.SetMemoryArg(2, inputBuff)

@@ -59,7 +59,7 @@ func doit(world xcl.World, krnl *xcl.Kernel, B *testing.B) {
 	defer buff.Free()
 
 	// set iterations to 1000
-	krnl.SetArg(0, 1000)
+	krnl.SetArg(0, 100)
 	// set input length.
 	krnl.SetArg(1, 64)
 	krnl.SetMemoryArg(2, inputBuff)
