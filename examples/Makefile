@@ -16,4 +16,4 @@ test:
 
 bench:
 	@reco project set mcmc
-	;wreco test run bench-mcmc
+	reco test run bench-mcmc
