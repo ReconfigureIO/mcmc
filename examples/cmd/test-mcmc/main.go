@@ -4,8 +4,8 @@ import (
 	"encoding/binary"
 	"fmt"
 	//"math/rand"
+	"github.com/ReconfigureIO/sdaccel/xcl"
 	"os"
-	"xcl"
 )
 
 func main() {

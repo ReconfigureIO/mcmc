@@ -2,12 +2,12 @@ package main
 
 import (
 	// Import the entire framework
-	_ "sdaccel"
+	_ "github.com/ReconfigureIO/sdaccel"
 
-	aximemory "axi/memory"
-	axiprotocol "axi/protocol"
 	"github.com/ReconfigureIO/math/rand"
 	. "github.com/ReconfigureIO/mcmc/matrix"
+	aximemory "github.com/ReconfigureIO/sdaccel/axi/memory"
+	axiprotocol "github.com/ReconfigureIO/sdaccel/axi/protocol"
 )
 
 // The kernel (this goes on the FPGA).
