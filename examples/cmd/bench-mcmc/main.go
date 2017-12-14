@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/binary"
 	// "math/rand"
+	"github.com/ReconfigureIO/sdaccel/xcl"
 	"testing"
-	"xcl"
 
 	"ReconfigureIO/reco-sdaccel/benchmarks"
 )
